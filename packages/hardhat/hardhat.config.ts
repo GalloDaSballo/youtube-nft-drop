@@ -60,8 +60,8 @@ const config: HardhatUserConfig = {
         excludeContracts: ["Mock", "ERC20"],
     },
     etherscan: {
-        apiKey: process.env.ETHERSCAN_API_KEY
-    }
+        apiKey: process.env.ETHERSCAN_API_KEY,
+    },
 };
 
 export default config;
