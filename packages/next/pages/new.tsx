@@ -13,23 +13,30 @@ const NewDropPage: React.FC = () => {
   const [subs, setSubs] = useState("");
   const [loading, setLoading] = useState(false); // May want to show loading modal if time allows
 
+  const [newEntry, setNewEntry] = useState<null | any>(null);
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    // TODO: Upload Files
+    try {
+      setLoading(true);
+      // TODO: Upload Files
 
-    await axios({
-      method: "post",
-      url: `${API_URL}/drops`,
-      data: {
-        channelId: channel,
-        channelThumb,
-        channelName,
-        imageURI:
-          "https://lh3.googleusercontent.com/SQKRv6-GD_DUzYl5p9Mv4p99o95IhamRVs04p0goE720pvUr-AVEo3HV9CnJdf9QE1nqAeLuMmZI6I_yd5hQiWiXZNPLbi-VvOrv=w600",
-        endDate: new Date(),
-      },
-    });
+      const res = await axios({
+        method: "post",
+        url: `${API_URL}/drops`,
+        data: {
+          channelId: channel,
+          channelThumb,
+          channelName,
+          imageURI:
+            "https://lh3.googleusercontent.com/SQKRv6-GD_DUzYl5p9Mv4p99o95IhamRVs04p0goE720pvUr-AVEo3HV9CnJdf9QE1nqAeLuMmZI6I_yd5hQiWiXZNPLbi-VvOrv=w600",
+          endDate: new Date(),
+        },
+      });
+      setNewEntry(res.data[0]);
+    } catch (err) {
+      alert(`Something went wrong ${err}`);
+    }
     // TODO: Send to server
     setLoading(false);
   };
@@ -45,6 +52,20 @@ const NewDropPage: React.FC = () => {
     };
     getUserChannelData();
   }, [user]);
+
+  if (newEntry) {
+    return (
+      <div>
+        <h2>Your Drop is ready!</h2>
+        <p>
+          Share this link with your subscribers and fans to gift them an NFT!
+        </p>
+        <p>
+          {window.location.host}/redeem/{newEntry.id}
+        </p>
+      </div>
+    );
+  }
 
   if (!user) {
     return (
@@ -92,7 +113,9 @@ const NewDropPage: React.FC = () => {
             <input type="file" />
           </label>
         </div>
-        <button type="submit">Submit</button>
+        <button disabled={loading} type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );

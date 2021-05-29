@@ -1,5 +1,6 @@
 import Link from "next/link";
 import useSWR from "swr";
+import NFT from "../components/NFT";
 import { Drop } from "../types";
 import { API_URL } from "../utils/constants";
 
@@ -15,10 +16,9 @@ const AllDropsPage: React.FC = () => {
         <Link href={`/redeem/${drop.id}`}>
           <a>
             <div>
-              <p>{drop.id}</p>
-              <p>Channel: {drop.channelId}</p>
+              <NFT image={drop.imageURI} />
+              <p>Drop by: {drop.channelName}</p>
               <p>Ends at: {drop.endDate}</p>
-              <img src={drop.imageURI} alt="Image for drop" />
             </div>
           </a>
         </Link>

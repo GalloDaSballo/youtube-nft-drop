@@ -1,5 +1,6 @@
 import { useUser } from "../../context/UserContext";
 import makeMagic from "../../utils/magic";
+import styles from "./Login.module.scss";
 
 const Login: React.FC = () => {
   const user = useUser();
@@ -23,7 +24,7 @@ const Login: React.FC = () => {
     );
   }
   return (
-    <div>
+    <div className={styles.login}>
       <button onClick={handleLogin}>Login</button>
     </div>
   );

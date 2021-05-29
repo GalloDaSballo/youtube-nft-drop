@@ -1,6 +1,8 @@
 export interface Drop {
   id: string;
   channelId: string;
+  channelThumb: string;
+  channelName: string;
   imageURI: string;
   endDate: Date;
 }

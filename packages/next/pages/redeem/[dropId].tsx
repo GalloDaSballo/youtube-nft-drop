@@ -1,15 +1,37 @@
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Login from "../../components/Login";
 import { useUser } from "../../context/UserContext";
+import { Drop } from "../../types";
 import { API_URL } from "../../utils/constants";
+
+const useDrop = (dropId: string): Drop | null => {
+  const [drop, setDrop] = useState<Drop | null>(null);
+  useEffect(() => {
+    const fetchDrop = async () => {
+      try {
+        const res = await axios({
+          method: "GET",
+          url: `${API_URL}/drops/${dropId}`,
+        });
+        setDrop(res.data[0]);
+      } catch (err) {}
+    };
+
+    fetchDrop();
+  }, [dropId]);
+
+  return drop;
+};
 
 const RedeemSingleTokenPage: React.FC = () => {
   const router = useRouter();
   const [address, setAddress] = useState<string | null>(null);
   const user = useUser();
   const { dropId } = router.query;
+
+  const dropData = useDrop(dropId);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -28,7 +50,17 @@ const RedeemSingleTokenPage: React.FC = () => {
 
   return (
     <div>
-      <h2>Redeem your Drop {dropId} by TODO</h2>
+      {dropData && (
+        <>
+          <h2>
+            Redeem your Drop by {dropData?.channelName}{" "}
+            <img src={dropData?.channelThumb} />
+          </h2>
+          <p>Login with youtube and redeem the following NFT</p>
+          {dropData && <img src={dropData.imageURI} alt="NFT" />}
+        </>
+      )}
+
       {!user && (
         <div>
           <h3>Step 1: Login into your Youtube Account</h3>
