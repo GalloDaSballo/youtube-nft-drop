@@ -1,4 +1,3 @@
-import { Magic } from "magic-sdk";
 import {
   createContext,
   useState,
@@ -8,7 +7,7 @@ import {
 } from "react";
 import makeMagic from "../utils/magic";
 
-let m: Magic; // Magic requires window to function
+let m: any; // Magic requires window to function
 
 interface User {
   oauth: {
@@ -41,13 +40,10 @@ type UserContextData = {
     };
   } | null;
   logout: () => void;
-  login: (_email: string) => void;
 };
 
 const UserContext = createContext<UserContextData>({
-  oauth: null,
-  magic: null,
-  login: () => null,
+  user: null,
   logout: () => null,
 });
 export default UserContext;

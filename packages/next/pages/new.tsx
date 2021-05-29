@@ -4,7 +4,7 @@ import { API_URL } from "../utils/constants";
 
 const NewDropPage: React.FC = () => {
   const [channel, setChannel] = useState("");
-  const [subs, setSubs] = useState(new Date());
+  const [subs, setSubs] = useState("");
   const [loading, setLoading] = useState(false); // May want to show loading modal if time allows
 
   const handleSubmit = async (e: FormEvent) => {
