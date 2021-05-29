@@ -14,8 +14,8 @@ const Home: React.FC = () => {
       <main className={styles.main}>
         <div className={styles.masthead}>
           <div>
-            <h1>Youtube NFT Drop</h1>
-            <h2>Get more subscribers, by rewarding those who get in early</h2>
+            <h1>Get more subscribers</h1>
+            <h2>By rewarding those who get in early</h2>
             <Link href="/new">
               <a>Create new Drop</a>
             </Link>

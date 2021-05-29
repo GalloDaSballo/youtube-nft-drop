@@ -5,6 +5,7 @@ import {
   useContext,
   useCallback,
 } from "react";
+import { storeAddressInCache } from "../utils/address";
 import makeMagic from "../utils/magic";
 
 let m: any; // Magic requires window to function
@@ -69,7 +70,8 @@ export const UserContextProvider: React.FC = ({ children }) => {
 
     const fromLogin = async () => {
       try {
-        const result = await m.oauth.getRedirectResult();
+        const result: User = await m.oauth.getRedirectResult();
+        storeAddressInCache(result?.magic?.userMetadata?.publicAddress);
         console.log("result", result);
         setUser(result);
       } catch (err) {

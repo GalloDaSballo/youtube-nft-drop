@@ -31,7 +31,7 @@ const RedeemSingleTokenPage: React.FC = () => {
       <h2>Redeem your Drop {dropId} by TODO</h2>
       {!user && (
         <div>
-          <h3>Step 1: Login with Youtube</h3>
+          <h3>Step 1: Login into your Youtube Account</h3>
           <Login />
         </div>
       )}

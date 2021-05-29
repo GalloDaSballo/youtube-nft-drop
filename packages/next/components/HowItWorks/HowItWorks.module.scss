@@ -2,10 +2,17 @@
   color: #3d3d3d;
   background-color: #f4f6f9;
   padding: 32px 26px;
+  text-align: center;
 }
 .steps {
   display: flex;
-  flex-direction: column;
+  .step {
+    margin-right: 33px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
 }
 
 .step {
@@ -19,4 +26,14 @@
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.07);
+}
+
+@media screen and (max-width: 1024px) {
+  .steps {
+    flex-direction: column;
+
+    .step {
+      margin-right: 0;
+    }
+  }
 }

@@ -1,9 +1,15 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../utils/constants";
+import getChannelData from "../utils/getChannelData";
+import { useUser } from "../context/UserContext";
+import Login from "../components/Login";
 
 const NewDropPage: React.FC = () => {
+  const user = useUser();
   const [channel, setChannel] = useState("");
+  const [channelThumb, setChannelThumb] = useState("");
+  const [channelName, setChannelName] = useState("");
   const [subs, setSubs] = useState("");
   const [loading, setLoading] = useState(false); // May want to show loading modal if time allows
 
@@ -17,6 +23,8 @@ const NewDropPage: React.FC = () => {
       url: `${API_URL}/drops`,
       data: {
         channelId: channel,
+        channelThumb,
+        channelName,
         imageURI:
           "https://lh3.googleusercontent.com/SQKRv6-GD_DUzYl5p9Mv4p99o95IhamRVs04p0goE720pvUr-AVEo3HV9CnJdf9QE1nqAeLuMmZI6I_yd5hQiWiXZNPLbi-VvOrv=w600",
         endDate: new Date(),
@@ -25,6 +33,28 @@ const NewDropPage: React.FC = () => {
     // TODO: Send to server
     setLoading(false);
   };
+
+  useEffect(() => {
+    const getUserChannelData = async () => {
+      if (user?.oauth?.accessToken) {
+        const data = await getChannelData(user.oauth.accessToken);
+        setChannelThumb(data.snippet.thumbnails.default.url);
+        setChannelName(data.snippet.title);
+        setChannel(data.id);
+      }
+    };
+    getUserChannelData();
+  }, [user]);
+
+  if (!user) {
+    return (
+      <div>
+        <h2>Login to youtube to create your drop</h2>
+        <Login />{" "}
+      </div>
+    );
+  }
+
   return (
     <div>
       <h2>Create your Drop</h2>
@@ -32,8 +62,15 @@ const NewDropPage: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="channel">
-            Your Channel Id
+            <img src={channelThumb} alt="Your thumb" />
             <input
+              disabled
+              value={channelName}
+              onChange={(e) => setChannel(e.target.value)}
+            />
+
+            <input
+              disabled
               value={channel}
               onChange={(e) => setChannel(e.target.value)}
             />
