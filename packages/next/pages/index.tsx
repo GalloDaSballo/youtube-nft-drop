@@ -31,6 +31,13 @@ const Home: React.FC = () => {
             <a>View your Collection</a>
           </Link>
         </p>
+
+        <h3>All Drops</h3>
+        <Link href="/all">
+          <a>
+            <p>View all drops here!</p>
+          </a>
+        </Link>
       </main>
     </div>
   );
