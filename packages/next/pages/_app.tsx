@@ -1,6 +1,7 @@
 // import App from "next/app";
 import type { AppProps /* , AppContext */ } from "next/app";
 import Header from "../components/Header";
+import "../styles/globals.scss";
 import { UserContextProvider } from "../context/UserContext";
 
 function MyApp({ Component, pageProps }: AppProps) {

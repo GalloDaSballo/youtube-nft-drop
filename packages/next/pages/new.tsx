@@ -41,7 +41,7 @@ const NewDropPage: React.FC = () => {
         </div>
         <div>
           <label htmlFor="subs">
-            Last day to subscribe
+            Last subscribed day (Any sub before this day is eligible to mint)
             <input
               value={subs}
               onChange={(e) => setSubs(e.target.value)}
