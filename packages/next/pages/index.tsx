@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Header from "../components/Header";
 import styles from "../styles/Home.module.css";
 
 const Home: React.FC = () => {
@@ -8,7 +9,7 @@ const Home: React.FC = () => {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <Header />
       <main className={styles.main}>
         <h1>Yotube NFT Drop</h1>
         <h2>Get more subscribers, by rewarding those who get in early</h2>
