@@ -1,33 +1,32 @@
-import { useEffect } from "react";
-import magic from "../../utils/magic";
+import { useUser } from "../../context/UserContext";
+import makeMagic from "../../utils/magic";
 
-const Login: React.FC = () => 
-{
-  useEffect(() => {
-    const fromLogin = async () => {
-      try {
-      const result = await magic.oauth.getRedirectResult();
-      console.log("result", result)
-      } catch(err) {
-        console.log("Exception in  getRedirectResult err", err)
-      }
-    }
-
-    fromLogin()
-
-  }, [])
+const Login: React.FC = () => {
+  const user = useUser();
+  console.log("user", user);
   const handleLogin = async () => {
+    const magic = makeMagic();
     await magic.oauth.loginWithRedirect({
-      provider: 'google',
+      provider: "google",
       redirectURI: window.location.href,
-      scope: ['https://www.googleapis.com/auth/youtube.readonly'], /* optional */
+      scope: [
+        "https://www.googleapis.com/auth/youtube.readonly",
+      ] /* optional */,
     });
+  };
+  if (user) {
+    return (
+      <div>
+        Logged in as: {user?.oauth?.userInfo?.name}{" "}
+        {user.magic?.userMetadata?.publicAddress}
+      </div>
+    );
   }
   return (
     <div>
       <button onClick={handleLogin}>Login</button>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

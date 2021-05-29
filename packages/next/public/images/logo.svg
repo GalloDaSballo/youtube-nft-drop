@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="83.21" height="40.335" viewBox="0 0 83.21 40.335">
+    <g>
+        <path fill="#fff" d="M71.4 67.288l-59.583.085A11.813 11.813 0 0 0 0 79.186v16.623a11.813 11.813 0 0 0 11.813 11.813l59.583-.085A11.813 11.813 0 0 0 83.21 95.725V79.1A11.813 11.813 0 0 0 71.4 67.288zM37.078 88.306l-15.554 7.419a.624.624 0 0 1-.893-.564v-15.3a.624.624 0 0 1 .907-.557l15.554 7.882a.624.624 0 0 1-.014 1.12z" transform="translate(-39 -28.931) translate(39 -38.356)"/>
+        <text fill="#fc2e34" font-family="EuclidCircularA-Bold, Euclid Circular A" font-size="11px" font-weight="700" transform="translate(-39 -28.931) translate(85 47)">
+            <tspan x="0" y="0">NFT </tspan><tspan x="0" y="10">Drop</tspan>
+        </text>
+    </g>
+</svg>
