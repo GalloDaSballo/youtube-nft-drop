@@ -1,8 +1,9 @@
 import Link from "next/link";
+import styles from "./ForSubs.module.scss";
 
 const ForSubs: React.FC = () => {
   return (
-    <div>
+    <div className={styles.container}>
       <h2>For Subscribers</h2>
       <img src="/images/subs.svg" alt="For Subscribers" />
       <p>
@@ -10,7 +11,7 @@ const ForSubs: React.FC = () => {
         badges
       </p>
       <Link href="/mycollection">
-        <a>View your Collection</a>
+        <a className={styles.link}>View your Collection</a>
       </Link>
     </div>
   );

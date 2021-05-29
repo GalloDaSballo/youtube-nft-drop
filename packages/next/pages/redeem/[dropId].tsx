@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import Login from "../../components/Login";
 import { useUser } from "../../context/UserContext";
 import { API_URL } from "../../utils/constants";
 
 const RedeemSingleTokenPage: React.FC = () => {
   const router = useRouter();
+  const [address, setAddress] = useState<string | null>(null);
   const user = useUser();
   const { dropId } = router.query;
 
@@ -18,7 +19,7 @@ const RedeemSingleTokenPage: React.FC = () => {
       url: `${API_URL}/claim`,
       data: {
         drop: dropId,
-        address: user.magic.userMetadata.publicAddress,
+        address: address || user.magic.userMetadata.publicAddress,
         accessToken: user.oauth.accessToken,
       },
     });
@@ -37,8 +38,16 @@ const RedeemSingleTokenPage: React.FC = () => {
       {user && (
         <>
           <h3>Step 2: Claim your NFT!</h3>
+          <label>
+            Specify a destination address (optional)
+            <input
+              type="string"
+              value={address}
+              onChange={() => setAddress(address)}
+            />
+          </label>
           <form onSubmit={handleSubmit}>
-            <button>Verify my Subscription</button>
+            <button type="submit">Verify my Subscription</button>
           </form>
         </>
       )}
