@@ -1,8 +1,15 @@
 // import App from "next/app";
-import type { AppProps /*, AppContext */ } from 'next/app'
+import type { AppProps /* , AppContext */ } from "next/app";
+import Header from "../components/Header";
+import { UserContextProvider } from "../context/UserContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <UserContextProvider>
+      <Header />
+      <Component {...pageProps} />
+    </UserContextProvider>
+  );
 }
 
 // Only uncomment this method if you have blocking data requirements for
@@ -17,4 +24,4 @@ function MyApp({ Component, pageProps }: AppProps) {
 //   return { ...appProps }
 // }
 
-export default MyApp
+export default MyApp;
