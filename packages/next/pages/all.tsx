@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import { Drop } from "../types";
 import { API_URL } from "../utils/constants";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -8,10 +9,12 @@ const AllDropsPage: React.FC = () => {
   return (
     <div>
       <h2>All Drops</h2>
-      {data.map((drop) => (
+      {data?.map((drop: Drop) => (
         <div>
           <p>{drop.id}</p>
-          <p>{drop.imageURL}</p>
+          <p>Channel: {drop.channelId}</p>
+          <p>Ends at: {drop.endDate}</p>
+          <img src={drop.imageURI} alt="Image for drop" />
         </div>
       ))}
     </div>
