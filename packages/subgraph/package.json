@@ -1,13 +1,13 @@
 {
-  "name": "SUB_GRAPHNAME",
+  "name": "@mono/subgraph",
   "version": "0.1.0",
   "scripts": {
     "build-contract": "solc contracts/Gravity.sol --abi -o abis --overwrite && solc contracts/Gravity.sol --bin -o bin --overwrite",
-    "create": "graph create YOU_GITHUB/SUB_GRAPHNAME --node https://api.thegraph.com/deploy/",
-    "create-local": "graph create YOU_GITHUB/SUB_GRAPHNAME --node http://127.0.0.1:8020",
+    "create": "graph create gallodasballo/proof-of-sub --node https://api.thegraph.com/deploy/",
+    "create-local": "graph create gallodasballo/proof-of-sub --node http://127.0.0.1:8020",
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy YOU_GITHUB/SUB_GRAPHNAME --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
+    "deploy": "graph deploy gallodasballo/proof-of-sub --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
     "deploy-local": "graph deploy YOU_GITHUB/SUB_GRAPHNAME --ipfs http://localhost:5001 --node http://127.0.0.1:8020"
   },
   "devDependencies": {

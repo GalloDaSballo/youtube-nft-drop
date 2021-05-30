@@ -2,16 +2,15 @@ specVersion: 0.0.2
 description: Gravatar for Ethereum
 repository: https://github.com/graphprotocol/example-subgraph
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: ProofOfSub
     network: matic
     source:
-      address: '0xF5aA8e3C6BA1EdF766E197a0bCD5844Fd1ed8A27'
+      address: "0xF5aA8e3C6BA1EdF766E197a0bCD5844Fd1ed8A27"
       abi: ProofOfSub
       startBlock: 15096261
-
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -20,8 +19,8 @@ dataSources:
         - Gravatar
       abis:
         - name: ProofOfSub
-          file: ./abis/ProofOfSub.json
+          file: ProofOfSub/abis/ProofOfSub.json
       eventHandlers:
         - event: TokenClaim(indexed address,string,string,indexed uint256)
           handler: handleTokenClaim
-      file: ./src/mapping.ts
+      file: ProofOfSub/ProofOfSub.wasm
