@@ -20,7 +20,9 @@ const AllDropsPage: React.FC = () => {
       <h2>All Drops</h2>
       <h3>
         <PolygonLink
-          href={`https://explorer-mainnet.maticvigil.com/tx/${PROOF_OF_SUM_CONTRACT}`}
+          target="_blank"
+          rel="nofollower noreferrer"
+          href={`https://explorer-mainnet.maticvigil.com/address/${PROOF_OF_SUM_CONTRACT}`}
         >
           Check out the genesis contract on Polygon
         </PolygonLink>
@@ -50,7 +52,7 @@ export const CentredDeadline = styled.div`
   ${typo.smallLabel};
   text-align: center;
 `;
-const PolygonLink = styled.div`
+const PolygonLink = styled.a`
   ${typo.title};
   color: #fc2e34;
   :hover {

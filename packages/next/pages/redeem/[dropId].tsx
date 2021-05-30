@@ -12,25 +12,6 @@ import { typo } from "../../lib/theme/styled-helpers";
 import { fetcher } from "../all";
 import ImageWrapper from "../../components/ImageWrapper";
 
-const useDrop = (dropId: string): Drop | null => {
-  const [drop, setDrop] = useState<Drop | null>(null);
-  useEffect(() => {
-    const fetchDrop = async () => {
-      try {
-        const res = await axios({
-          method: "GET",
-          url: `${API_URL}/drops/${dropId}`,
-        });
-        setDrop(res.data[0]);
-      } catch (err) {}
-    };
-
-    fetchDrop();
-  }, [dropId]);
-
-  return drop;
-};
-
 const RedeemSingleTokenPage: React.FC = () => {
   const router = useRouter();
 
@@ -39,10 +20,6 @@ const RedeemSingleTokenPage: React.FC = () => {
   const user = useUser();
   const { dropId } = router.query;
   const { data: drop, error } = useSWR(`${API_URL}/drops/${dropId}`, fetcher);
-
-  console.log("drop", drop);
-
-  const dropData = useDrop(dropId);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
