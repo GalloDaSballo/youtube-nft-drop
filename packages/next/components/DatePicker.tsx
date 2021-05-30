@@ -8,7 +8,7 @@ import {
 } from "@material-ui/pickers";
 import moment from "moment";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
-import { defaultDateFormat } from "../lib/utils/date";
+import { defaultDateFormat } from "../utils/date";
 import TextField from "./_TextField";
 
 interface Props {
