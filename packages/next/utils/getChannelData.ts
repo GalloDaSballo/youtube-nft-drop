@@ -10,7 +10,6 @@ const getChannelData = async (accessToken: string): Promise<ChannelItem> => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    console.log("res", res);
     return res?.data?.items?.[0];
   } catch (err) {
     return null;

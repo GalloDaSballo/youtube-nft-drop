@@ -15,7 +15,10 @@ const Feed: React.FC = () => {
             {drop.tokenURI && (
               <div>
                 <NFT image={getLink(drop.tokenURI)} />
-                <h3>Claimed: {drop.claims.length} times</h3>
+                <h3>
+                  Claimed {drop.claims.length} time
+                  {drop.claims.length > 1 && <>s</>}
+                </h3>
               </div>
             )}
           </>
