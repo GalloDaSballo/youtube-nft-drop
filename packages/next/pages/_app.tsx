@@ -3,13 +3,22 @@ import type { AppProps /* , AppContext */ } from "next/app";
 import Header from "../components/Header";
 import "../styles/globals.scss";
 import { UserContextProvider } from "../context/UserContext";
+// eslint-disable-next-line import/order
+import { ThemeProvider, StylesProvider } from "@material-ui/core/styles";
+
+// eslint-disable-next-line import/order
+import { ThemeProvider as SCThemeProvider } from "styled-components";
+import styledTheme from "../lib/theme/styled-components";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <UserContextProvider>
-      <Header />
-      <Component {...pageProps} />
-    </UserContextProvider>
+    <SCThemeProvider theme={styledTheme}>
+      <UserContextProvider>
+        <Header />
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+        <Component {...pageProps} />
+      </UserContextProvider>
+    </SCThemeProvider>
   );
 }
 

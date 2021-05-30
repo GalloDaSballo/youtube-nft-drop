@@ -2,9 +2,9 @@ import styles from "./HowItWorks.module.scss";
 
 const STEPS = [
   "Register with your youtube account",
-  "Set a deadline for the drop",
-  "Upload an image or video for the NFT",
-  "All subscribers will be eligible to receive the NFT",
+  "Set a deadline to subscribe for the drop",
+  "Upload an image for the NFT",
+  "Eligible subscribers will be able to claim their NFT",
 ];
 const HowItWorks: React.FC = () => {
   return (

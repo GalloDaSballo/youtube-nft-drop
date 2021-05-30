@@ -1,30 +1,60 @@
 import Link from "next/link";
 import useSWR from "swr";
-import NFT from "../components/NFT";
+import styled from "styled-components";
+import React from "react";
 import { Drop } from "../types";
-import { API_URL } from "../utils/constants";
+import { API_URL, PROOF_OF_SUM_CONTRACT } from "../utils/constants";
+import { formatDate } from "../utils/date";
+import ImageWrapper from "../components/ImageWrapper";
+import { Container } from "./view/[dropId]";
+import { Title, TitleUnderLineRed } from "./redeem/[dropId]";
+import { typo } from "../lib/theme/styled-helpers";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+export const fetcher = (url) => fetch(url).then((res) => res.json());
 // If time allows
 const AllDropsPage: React.FC = () => {
   const { data, error } = useSWR(`${API_URL}/drops`, fetcher);
+  console.log("data", data);
   return (
-    <div>
+    <Container>
       <h2>All Drops</h2>
+      <h3>
+        <PolygonLink
+          href={`https://explorer-mainnet.maticvigil.com/tx/${PROOF_OF_SUM_CONTRACT}`}
+        >
+          Check out the genesis contract on Polygon
+        </PolygonLink>
+      </h3>
 
       {data?.map((drop: Drop) => (
         <Link href={`/redeem/${drop.id}`}>
           <a>
             <div>
-              <NFT image={drop.imageURI} />
-              <p>Drop by: {drop.channelName}</p>
-              <p>Ends at: {drop.endDate}</p>
+              <Title>Channel: {drop.channelName}</Title>
+              <CentredDeadline>YouTube NFT #{drop.id}</CentredDeadline>
+              <CentredDeadline>
+                Subscription Deadline: {formatDate(drop.endDate)}
+              </CentredDeadline>
+              <ImageWrapper src={drop.imageURI} />
             </div>
           </a>
         </Link>
       ))}
-    </div>
+    </Container>
   );
 };
 
 export default AllDropsPage;
+
+export const CentredDeadline = styled.div`
+  ${typo.smallLabel};
+  text-align: center;
+`;
+const PolygonLink = styled.div`
+  ${typo.title};
+  color: #fc2e34;
+  :hover {
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.17);
+    cursor: pointer;
+  }
+`;

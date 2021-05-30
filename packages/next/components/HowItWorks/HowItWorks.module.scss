@@ -6,6 +6,7 @@
 }
 .steps {
   display: flex;
+  align-items: center;
   .step {
     margin-right: 33px;
 
@@ -17,12 +18,13 @@
 
 .step {
   margin-top: 33px;
-  padding: 25px 28px;
+  padding: 25px 20px;
   text-align: center;
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
   flex: 1;
+  align-content: center;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 8px 19px 0 rgba(0, 0, 0, 0.07);
