@@ -7,6 +7,7 @@ import { Title } from "./redeem/[dropId]";
 import { CentredDeadline } from "./all";
 import useMyClaims from "../hooks/useMyClaims";
 import { Claim } from "../types";
+import { getLink } from "../utils/text";
 
 // If time allows
 const MyCollectionPage: React.FC = () => {
@@ -20,7 +21,7 @@ const MyCollectionPage: React.FC = () => {
       {!myAddress && <Login />}
       {myAddress && <Address>Your address: {myAddress}</Address>}
       {drops?.map((claim: Claim) => (
-        <NFT image={claim.drop.tokenURI} />
+        <NFT image={getLink(claim.drop.tokenURI)} />
       ))}
     </Container>
   );
