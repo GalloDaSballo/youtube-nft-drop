@@ -18,3 +18,23 @@ export interface ChannelItem {
     };
   };
 }
+
+export interface Claim {
+  id: string;
+  subscriber: string;
+  drop: {
+    id: string;
+    channelId: string;
+    tokenURI: string;
+  };
+  tokenId: string;
+}
+
+export interface DropFromGraph {
+  id: string;
+  channelId: string;
+  tokenURI: string;
+  claims: {
+    id: string;
+  }[];
+}

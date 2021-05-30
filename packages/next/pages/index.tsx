@@ -5,6 +5,7 @@ import ForSubs from "../components/ForSubs";
 import HowItWorks from "../components/HowItWorks";
 import styles from "../styles/Home.module.scss";
 import { ButtonThird } from "../components/Button";
+import Feed from "../components/Feed";
 
 const Home: React.FC = () => {
   return (
@@ -29,12 +30,7 @@ const Home: React.FC = () => {
         <HowItWorks />
         <ForSubs />
 
-        {/* <h3>All Drops</h3> */}
-        {/* <Link href="/all"> */}
-        {/*  <a> */}
-        {/*    <p>View all drops here!</p> */}
-        {/*  </a> */}
-        {/* </Link> */}
+        <Feed />
       </main>
     </div>
   );
