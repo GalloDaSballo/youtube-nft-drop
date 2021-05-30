@@ -3,6 +3,7 @@ import { DropFromGraph } from "../../types";
 import { getLink } from "../../utils/text";
 import NFT from "../NFT";
 import styles from "./Feed.module.scss";
+import { StyledImageWrapper } from "../ImageWrapper";
 
 const Feed: React.FC = () => {
   const drops = useDrops();
@@ -14,7 +15,7 @@ const Feed: React.FC = () => {
           <>
             {drop.tokenURI && (
               <div>
-                <NFT image={getLink(drop.tokenURI)} />
+                <StyledImageWrapper src={getLink(drop.tokenURI)} />
                 <h3>
                   Claimed {drop.claims.length} time
                   {drop.claims.length > 1 && <>s</>}
