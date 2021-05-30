@@ -1,5 +1,6 @@
 import { config as dotenvConfig } from "dotenv";
 import { resolve } from "path";
+// eslint-disable-next-line import/no-cycle
 import { RemoteChain } from "./networks";
 
 dotenvConfig({ path: resolve(__dirname, "../.env") });
