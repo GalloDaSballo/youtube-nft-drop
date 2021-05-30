@@ -171,22 +171,22 @@ const NewDropPage: React.FC = () => {
     acceptedFiles.splice(0, 1);
   };
 
-  if (result) {
-    return (
-      <Container>
-        <h2>Create Drop</h2>
-        <div>
-          <h2>Your Drop is ready!</h2>
-          <p>
-            Share this link with your subscribers and fans to gift them an NFT!
-          </p>
-          <p>
-            {window.location.host}/redeem/{result.id}
-          </p>
-        </div>
-      </Container>
-    );
-  }
+  // if (result) {
+  //   return (
+  //     <Container>
+  //       <h2>Create Drop</h2>
+  //       <div>
+  //         <h2>Your Drop is ready!</h2>
+  //         <p>
+  //           Share this link with your subscribers and fans to gift them an NFT!
+  //         </p>
+  //         <p>
+  //           {window.location.host}/redeem/{result.id}
+  //         </p>
+  //       </div>
+  //     </Container>
+  //   );
+  // }
 
   return (
     <Container>
