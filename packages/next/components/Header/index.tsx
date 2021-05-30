@@ -38,7 +38,9 @@ const Header: React.FC = () => {
           </Link>
         )}
         {user ? (
-          <FakeButton>{user.magic.userMetadata.publicAddress}</FakeButton>
+          <FakeButton>
+            {String(user.magic.userMetadata.publicAddress).substring(0, 8)}
+          </FakeButton>
         ) : (
           <LoginButton onClick={handleLogin}>Login</LoginButton>
         )}
