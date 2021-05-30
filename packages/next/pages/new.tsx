@@ -2,14 +2,25 @@ import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useDropzone } from "react-dropzone";
+import { router } from "next/client";
+import { red } from "@material-ui/core/colors";
 import { API_URL } from "../utils/constants";
 import getChannelData from "../utils/getChannelData";
 import { useUser } from "../context/UserContext";
-import { Container } from "./redeem/[dropId]";
+import { Container, Title, TitleUnderLineRed } from "./redeem/[dropId]";
 import _TextField from "../components/_TextField";
 import { typo } from "../lib/theme/styled-helpers";
 import { ButtonThird } from "../components/Button";
 import VSpacer from "../components/VSpacer";
+import LoadingBox from "../lib/assets/LoadingBox";
+import ImageWrapper from "../components/ImageWrapper";
+import { CentredDeadline } from "./all";
+import { formatDate } from "../utils/date";
+import { encode } from "../utils/text";
+import TwitterLogo from "../lib/assets/TwitterLogo";
+import HSpacer from "../components/HSpacer";
+import { createTweetContentInfluencer } from "../utils/twitter";
+import { TwitterButton } from "./view/[dropId]";
 
 const getColor = (props) => {
   if (props.isDragAccept) {
@@ -47,21 +58,15 @@ const NewDropPage: React.FC = () => {
   const [channelThumb, setChannelThumb] = useState("");
   const [channelName, setChannelName] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [buckets, setBuckets] = useState(null);
-  const [bucketKey, setBucketKey] = useState(null);
   const [image, setImage] = useState("");
-  const [subs, setSubs] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [loading, setLoading] = useState(false); // May want to show loading modal if time allows
-
-  // const setupBuckets = async () => {
-  //   const { buckets: newBuckets, bucketKey: newBucketKey } = await getBuckets();
-  //   setBuckets(newBuckets);
-  //   setBucketKey(newBucketKey);
-  // };
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [hash, setHash] = useState(null);
+  const [result, setResult] = useState(null);
 
   const uploadFilePinata = async () => {
-    // e.preventDefault();
-
     if (!imageFile) {
       console.log("No file");
       return;
@@ -91,52 +96,37 @@ const NewDropPage: React.FC = () => {
     const response = await res.json();
     console.log("response", response);
     setImage(response.IpfsHash);
-
-    setLoading(false);
     return response.IpfsHash;
   };
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // TODO: Upload Files
-    // const { buckets, bucketKey } = await getBuckets();
-    // await console.log("buckets", buckets);
-    // await console.log("bucketKey", bucketKey);
-    // if (!buckets || !bucketKey) throw Error("buckets or bucketKey not defined");
-    // await initIndex(buckets, bucketKey, channel);
-    // await insert
     const hash = await uploadFilePinata();
+    setHash(hash);
     console.log("image", image);
     console.log("channel", channel);
+    try {
+      const axiosResponse = await axios({
+        method: "post",
+        url: `${API_URL}/drops`,
+        data: {
+          channelId: channel,
+          channelThumb,
+          channelName,
+          imageURI: hash,
+          endDate: new Date(endDate),
+        },
+      });
+      console.log("axiosResponse", axiosResponse);
+      setResult(axiosResponse.data[0]);
+      setSuccess(true);
 
-    const axiosResponse = await axios({
-      method: "post",
-      url: `${API_URL}/drops`,
-      data: {
-        channelId: channel,
-        channelThumb,
-        channelName,
-        imageURI: hash,
-        endDate: new Date(),
-      },
-    });
-    console.log("axiosResponse", axiosResponse);
-    // TODO: Send to server
-    setLoading(false);
+      setLoading(false);
+    } catch (e) {
+      setError(e.message);
+      console.log("e.message", e.message);
+    }
   };
-
-  // const onDrop = async (acceptedFiles: File[]) => {
-  //   // if (photos.length > 50) {
-  //   //   throw new Error("Gallery at maximum size");
-  //   // }
-  //   if (acceptedFiles.length > 5) {
-  //     throw new Error("Max 5 images at a time");
-  //   }
-  //   for (const accepted of acceptedFiles) {
-  //     await handleNewFile(buckets, bucketKey, accepted);
-  //   }
-  //   // storeIndex(this.state.index);
-  // };
   const {
     acceptedFiles,
     getRootProps,
@@ -156,20 +146,6 @@ const NewDropPage: React.FC = () => {
       {file.path} - {file.size} bytes
     </li>
   ));
-  const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.forEach((file) => {
-      const reader = new FileReader();
-
-      reader.onabort = () => console.log("file reading was aborted");
-      reader.onerror = () => console.log("file reading has failed");
-      reader.onload = () => {
-        // Do whatever you want with the file contents
-        const binaryStr = reader.result;
-        console.log(binaryStr);
-      };
-      reader.readAsArrayBuffer(file);
-    });
-  }, []);
 
   useEffect(() => {
     const getUserChannelData = async () => {
@@ -183,12 +159,6 @@ const NewDropPage: React.FC = () => {
     getUserChannelData();
   }, [user]);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     await setupBuckets();
-  //   })();
-  // }, []);
-
   if (!user) {
     return (
       <Container>
@@ -196,56 +166,90 @@ const NewDropPage: React.FC = () => {
       </Container>
     );
   }
-  // if (!buckets) {
-  //   return (
-  //     <Container>
-  //       <h2>Loading... buckets... </h2>
-  //     </Container>
-  //   );
-  // }
+
+  const restart = () => {
+    setError("");
+    setSuccess(false);
+    setResult(null);
+    acceptedFiles.splice(0, 1);
+  };
 
   return (
     <Container>
-      <h2>Create Drop</h2>
-      {loading && <p>Loading</p>}
-      <FormContainer onSubmit={handleSubmit}>
-        {/* <img src={channelThumb} alt="Your thumb" /> */}
-        <FormLabel>Channel Name</FormLabel>
-        <_TextField disabled value={channelName} />
-        <FormLabel>Channel ID</FormLabel>
-        <_TextField
-          disabled
-          value={channel}
-          onChange={(e) => setChannel(e.target.value)}
-        />
-        <FormLabel>Subscription Deadline</FormLabel>
-        <_TextField
-          value={subs}
-          onChange={(e) => setSubs(e.target.value)}
-          type="date"
-        />
-        <FormLabel>Upload image</FormLabel>
-        <VSpacer />
-        <div className="container">
-          <DropContainer
-            onDrop={onDrop}
-            {...getRootProps({ isDragActive, isDragAccept, isDragReject })}
+      {success ? (
+        <>
+          <Title>Your Drop is Ready!</Title>
+          <TitleUnderLineRed>{channelName}</TitleUnderLineRed>
+          <CentredDeadline>YouTube NFT #{result.id}</CentredDeadline>
+          <CentredDeadline>
+            Subscription Deadline: {formatDate(new Date(endDate))}
+          </CentredDeadline>
+
+          <ImageWrapper src={hash} />
+          <TwitterButton
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const newWindow = window.open(
+                `https://twitter.com/intent/tweet?text=${encode(
+                  createTweetContentInfluencer(result.channelName, result.id)
+                )}`,
+                "_blank",
+                "noopener,noreferrer"
+              );
+              if (newWindow) newWindow.opener = null;
+            }}
+            color="#fc2e34"
+            type="submit"
           >
-            <input {...getInputProps()} />
-            <p>Drag 'n' drop some files here, or click to select files</p>
-          </DropContainer>
-        </div>
-        {files}
-        <VSpacer />
-        {/* <input */}
-        {/*  type="file" */}
-        {/*  onChange={(e) => setImageFile(e.target.files && e.target.files[0])} */}
-        {/* />{" "} */}
-        {/* <ButtonWrapper> */}
-        <VSpacer />
-        <SubmitButton type="submit">Submit</SubmitButton>
-        {/* </ButtonWrapper> */}
-      </FormContainer>
+            <TwitterLogo />
+            <HSpacer />
+            Share on Twitter
+          </TwitterButton>
+          <VSpacer />
+          <SubmitButton onClick={restart}>Drop Another</SubmitButton>
+        </>
+      ) : (
+        <>
+          <h2>Create Drop</h2>
+          {loading && <p>Loading</p>}
+          <FormContainer onSubmit={handleSubmit}>
+            {/* <ChannelAvatar src={channelThumb} alt="Your thumb" /> */}
+            <FormLabel>Channel Name</FormLabel>
+            <_TextField disabled value={channelName} />
+            <FormLabel>Channel ID</FormLabel>
+            <_TextField
+              disabled
+              value={channel}
+              onChange={(e) => setChannel(e.target.value)}
+            />
+            <FormLabel>Subscription Deadline</FormLabel>
+            <_TextField
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              type="date"
+            />
+            <FormLabel>Upload image</FormLabel>
+            <VSpacer />
+            <div className="container">
+              <DropContainer
+                {...getRootProps({ isDragActive, isDragAccept, isDragReject })}
+              >
+                <input {...getInputProps()} />
+                <p>Drag 'n' drop some files here, or click to select files</p>
+              </DropContainer>
+            </div>
+            <VSpacer />
+            {files}
+            <VSpacer />
+            {loading ? (
+              <LoadingBox height="200px" />
+            ) : (
+              <SubmitButton type="submit">Submit</SubmitButton>
+            )}
+          </FormContainer>
+        </>
+      )}
     </Container>
   );
 };
@@ -266,4 +270,9 @@ const ButtonWrapper = styled.div`
   padding: 0;
   display: flex;
   width: 100%;
+`;
+
+export const ChannelAvatar = styled.img`
+  width: 70px;
+  border-radius: 40px;
 `;
