@@ -72,12 +72,13 @@ const HeaderRow = styled.div`
 `;
 const Nav = styled.div`
   display: flex;
-  padding: 30px 0 0 0;
+
   justify-self: flex-end;
   justify-content: flex-end;
   align-content: flex-end;
   align-items: center;
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 567px) {
+    padding: 30px 0 0 0;
     justify-content: space-between;
     width: 100vw;
     flex-wrap: wrap;

@@ -1,10 +1,11 @@
+import React from "react";
 import styles from "./HowItWorks.module.scss";
 
 const STEPS = [
   "Register with your youtube account",
   "Set a deadline to subscribe for the drop",
   "Upload an image for the NFT",
-  "Eligible subscribers will be able to claim their NFT",
+  "Eligible subscribers can claim their NFT",
 ];
 const HowItWorks: React.FC = () => {
   return (
