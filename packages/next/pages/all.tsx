@@ -20,7 +20,6 @@ const AllDropsPage: React.FC = () => {
   return (
     <Container>
       <h2>All Drops</h2>
-      {/* <h3> */}
       <PolygonLink
         target="_blank"
         rel="nofollower noreferrer"
@@ -28,7 +27,6 @@ const AllDropsPage: React.FC = () => {
       >
         Check out the genesis contract on Polygon
       </PolygonLink>
-      {/* </h3> */}
 
       {data?.map((drop: Drop) => (
         <Link href={`/redeem/${drop.id}`}>
@@ -62,7 +60,7 @@ export const CentredDeadline = styled.div`
   ${typo.smallLabel};
   text-align: center;
 `;
-const PolygonLink = styled.a`
+export const PolygonLink = styled.a`
   ${typo.title};
   color: #fc2e34;
   text-align: center;
