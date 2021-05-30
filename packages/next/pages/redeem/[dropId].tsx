@@ -58,7 +58,7 @@ const RedeemSingleTokenPage: React.FC = () => {
           <Title>Redeem your Drop by</Title>
           <TitleUnderLineRed>{drop[0]?.channelName}</TitleUnderLineRed>
 
-          <ImageWrapper src={drop[0].imageURI} alt="Image for drop" />
+          <ImageWrapper src={drop[0].imageURI} />
         </>
       )}
       {!cannotRedeem ? (

@@ -150,7 +150,8 @@ const NewDropPage: React.FC = () => {
       setImageFile(files[0]);
     },
   });
-  const files = acceptedFiles.map((file) => (
+  type FileProps = File & { path: string };
+  const files = acceptedFiles.map((file: FileProps) => (
     <li key={file.path}>
       {file.path} - {file.size} bytes
     </li>

@@ -10,7 +10,7 @@ import { API_URL } from "../../utils/constants";
 import { Button, ButtonThird } from "../../components/Button";
 import { fetcher } from "../all";
 import { Title, TitleUnderLineRed } from "../redeem/[dropId]";
-import TwitterLogo from "../../lib/assets/twitter.svg";
+import TwitterLogo from "../../lib/assets/TwitterLogo";
 import HSpacer from "../../components/HSpacer";
 import { encode, getLink } from "../../utils/text";
 import ImageWrapper from "../../components/ImageWrapper";
@@ -43,7 +43,7 @@ const RedeemSingleTokenPage: React.FC = () => {
           <Title>You Redeemed your Drop by</Title>
           <TitleUnderLineRed>{drop[0]?.channelName}</TitleUnderLineRed>
 
-          <ImageWrapper src={drop[0].imageURI} alt="Image for drop" />
+          <ImageWrapper src={drop[0].imageURI} />
         </>
       )}
       {!user && (

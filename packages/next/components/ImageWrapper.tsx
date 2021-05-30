@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import { ImageProps } from "next/image";
 import { getLink } from "../utils/text";
 
-const ImageWrapper: React.FC<{ src: string }> = ({ src, ...props }) => {
+const ImageWrapper: React.FC<{ alt?: string; src: string }> = ({
+  src,
+  ...props
+}) => {
   const link = getLink(src);
   console.log("link", link);
   return <StyledImageWrapper src={link} alt="Image for drop" {...props} />;
