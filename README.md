@@ -1,9 +1,28 @@
-# Hardhat Next Subgraph Mono
+# YT NFT Drop
+
+Get more subscribers by rewarding those who get in early
+
+Issue NFT Drops for your subscribers
+
 
 Monorepo setup using:
 - Solidity Template by @TomAFrench and @paulrberg
 - NextJS with Typescript and EsLint
 - theGraph
+
+## Live site
+
+https://www.ytdrop.xyz/
+
+## Contracts Deployed on Matic
+`
+0xF5aA8e3C6BA1EdF766E197a0bCD5844Fd1ed8A27
+`
+
+## Subgraph link
+
+https://thegraph.com/explorer/subgraph/gallodasballo/proof-of-sub
+
 
 
 ## hardhat
