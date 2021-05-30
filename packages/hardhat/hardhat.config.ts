@@ -33,6 +33,8 @@ const config: HardhatUserConfig = {
         kovan: { accounts, ...getRemoteNetworkConfig("kovan") },
         rinkeby: { accounts, ...getRemoteNetworkConfig("rinkeby") },
         ropsten: { accounts, ...getRemoteNetworkConfig("ropsten") },
+        matic: { accounts, ...getRemoteNetworkConfig("matic") },
+        mumbai: { accounts, ...getRemoteNetworkConfig("mumbai") },
     },
     paths: {
         artifacts: "./artifacts",

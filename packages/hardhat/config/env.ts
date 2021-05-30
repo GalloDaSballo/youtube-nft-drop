@@ -1,5 +1,6 @@
 import { config as dotenvConfig } from "dotenv";
 import { resolve } from "path";
+import { RemoteChain } from "./networks";
 
 dotenvConfig({ path: resolve(__dirname, "../.env") });
 
@@ -11,3 +12,6 @@ if (!process.env.MNEMONIC) {
 export const mnemonic: string = process.env.MNEMONIC;
 export const infuraApiKey = process.env.INFURA_API_KEY;
 export const maticVigilApiKey = process.env.MATICVIGIL_API_KEY;
+export const NETWORK: RemoteChain = (process.env.NETWORK as string) === "matic" ? "matic" : "mumbai";
+export const BOT_ADDRESS = process.env.BOT_ADDRESS as string;
+console.log("network", NETWORK);
