@@ -1,17 +1,25 @@
+import styled from "styled-components";
 import Login from "../components/Login";
 import { getAddressInCache } from "../utils/address";
+import { Container } from "./view/[dropId]";
+import { Title } from "./redeem/[dropId]";
+import { CentredDeadline } from "./all";
 
 // If time allows
 const MyCollectionPage: React.FC = () => {
   const myAddress = getAddressInCache();
   console.log("myAddress", myAddress);
   return (
-    <div>
-      <h2>My Collection</h2>
+    <Container>
+      <Title>My Collection</Title>
       {!myAddress && <Login />}
-      {myAddress && <p>Your address: {myAddress}</p>}
-    </div>
+      {myAddress && <Address>Your address: {myAddress}</Address>}
+    </Container>
   );
 };
 
 export default MyCollectionPage;
+
+const Address = styled(CentredDeadline)`
+  margin: 5px;
+`;
