@@ -1,0 +1,26 @@
+.masthead {
+  background-color: #fc2e34;
+  color: #ffffff;
+  text-align: center;
+  padding: 0 36px;
+
+  display: flex;
+  align-items: center;
+  h1 {
+    font-size: 25px;
+    line-height: 35px;
+  }
+  h2 {
+    font-size: 20px;
+    line-height: 28px;
+    margin-bottom: 36px;
+  }
+  a  {
+    background-color: #000000;
+    padding: 16px 78px 20px;
+    border-radius: 32px;
+    font-size: 18px;
+    color: #ffffff;
+    display: inline-block;
+  }
+}

@@ -1,5 +1,8 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import Link from "next/link";
+import ForSubs from "../components/ForSubs";
+import HowItWorks from "../components/HowItWorks";
+import styles from "../styles/Home.module.scss";
 
 const Home: React.FC = () => {
   return (
@@ -8,26 +11,28 @@ const Home: React.FC = () => {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main className={styles.main}>
-        <h1>Yotube NFT Drop</h1>
-        <h2>Get more subscribers, by rewarding those who get in early</h2>
-        <button>Sign up with Metamask</button>
+        <div className={styles.masthead}>
+          <div>
+            <h1>Get more subscribers</h1>
+            <h2>By rewarding those who get in early</h2>
+            <Link href="/new">
+              <a>Create new Drop</a>
+            </Link>
+          </div>
+          <div>
+            <img src="/images/home.png" alt="Welcome to youtube nft drop!" />
+          </div>
+        </div>
+        <HowItWorks />
+        <ForSubs />
 
-        <h3>How it works</h3>
-        <p>
-          Register with your youtube account Specify how many subscribers to
-          rewards Upload an image or video for the NFT Any valid subscriber will
-          be eligible to receive the NFT
-        </p>
-
-        <h3>For Subscribers</h3>
-        <p>
-          Show how early you were supporting your favourite creators by
-          collecting badges
-        </p>
-
-        <button>View My Badges</button>
+        <h3>All Drops</h3>
+        <Link href="/all">
+          <a>
+            <p>View all drops here!</p>
+          </a>
+        </Link>
       </main>
     </div>
   );
