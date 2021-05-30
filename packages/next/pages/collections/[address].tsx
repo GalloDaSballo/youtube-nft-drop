@@ -6,6 +6,7 @@ import { Container } from "../view/[dropId]";
 import { Title } from "../redeem/[dropId]";
 import useMyClaims from "../../hooks/useMyClaims";
 import { Claim } from "../../types";
+import { getLink } from "../../utils/text";
 
 // If time allows
 const MyCollectionPage: React.FC = () => {
@@ -17,7 +18,7 @@ const MyCollectionPage: React.FC = () => {
     <Container>
       <Title>{address} Collection</Title>
       {drops?.map((claim: Claim) => (
-        <NFT image={claim.drop.tokenURI} />
+        <NFT image={getLink(claim.drop.tokenURI)} />
       ))}
     </Container>
   );
