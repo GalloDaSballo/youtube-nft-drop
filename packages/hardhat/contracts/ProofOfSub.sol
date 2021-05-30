@@ -12,29 +12,46 @@ contract ProofOfSub is ERC721URIStorage, Ownable, ERC721PresetMinterPauserAutoId
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
-    address constant BOT_ADDRESS = 0x00e69aE238c25C5Ad698Bb08355AA5Bc209FE991;
+    // Mapping from owner to token if claimed
+    mapping (address => mapping (bytes32 => bool)) public _ownershipClaimed;
 
     event TokenClaim(address indexed subscriber, string tokenURI, string channelId, uint256 indexed tokenId);
 
-    constructor(string memory name, string memory symbol, string memory baseTokenURI) ERC721PresetMinterPauserAutoId(name, symbol, baseTokenURI) {
-        _setupRole(DEFAULT_ADMIN_ROLE, BOT_ADDRESS);
-        _setupRole(MINTER_ROLE, BOT_ADDRESS);
-        _setupRole(PAUSER_ROLE, BOT_ADDRESS);
+    constructor(address botAddress, string memory name, string memory symbol, string memory baseTokenURI) ERC721PresetMinterPauserAutoId(name, symbol, baseTokenURI) {
+        _setupRole(DEFAULT_ADMIN_ROLE, botAddress);
+        _setupRole(MINTER_ROLE, botAddress);
+        _setupRole(PAUSER_ROLE, botAddress);
+    }
+
+    function stringToBytes32(string memory source) public pure returns (bytes32 result) {
+        bytes memory tempEmptyStringTest = bytes(source);
+        if (tempEmptyStringTest.length == 0) {
+            return 0x0;
+        }
+
+        assembly {
+            result := mload(add(source, 32))
+        }
+    }
+
+    modifier _isClaimed(address _subscriber, string memory _tokenURI) {
+        require(_ownershipClaimed[_subscriber][stringToBytes32(_tokenURI)] == false);
+        _;
     }
 
     function awardItem(address _subscriber, string memory _tokenURI, string memory _channelId)
-    public onlyOwner
-    returns (uint256)
+    public onlyRole(MINTER_ROLE) _isClaimed(_subscriber, _tokenURI)
+    returns (uint256, string memory)
     {
         _tokenIds.increment();
 
         uint256 newItemId = _tokenIds.current();
         _mint(_subscriber, newItemId);
         _setTokenURI(newItemId, _tokenURI);
+        _ownershipClaimed[_subscriber][stringToBytes32(_tokenURI)] = true;
 
         emit TokenClaim(_subscriber, _tokenURI, _channelId, newItemId);
-
-        return newItemId;
+        return (newItemId, _tokenURI);
     }
 
     function _baseURI() internal view virtual override(ERC721, ERC721PresetMinterPauserAutoId) returns (string memory) {

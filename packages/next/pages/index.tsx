@@ -1,38 +1,40 @@
 import Head from "next/head";
 import Link from "next/link";
+import React from "react";
 import ForSubs from "../components/ForSubs";
 import HowItWorks from "../components/HowItWorks";
 import styles from "../styles/Home.module.scss";
+import { ButtonThird } from "../components/Button";
 
 const Home: React.FC = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>YouTube NFT Drop</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
         <div className={styles.masthead}>
           <div>
             <h1>Get more subscribers</h1>
-            <h2>By rewarding those who get in early</h2>
+            <h2>by rewarding those who get in early</h2>
             <Link href="/new">
-              <a>Create new Drop</a>
+              <ButtonThird>Create Drop</ButtonThird>
             </Link>
           </div>
           <div>
-            <img src="/images/home.png" alt="Welcome to youtube nft drop!" />
+            <img src="/images/home.png" alt="Welcome to YouTube NFT Drop!" />
           </div>
         </div>
         <HowItWorks />
         <ForSubs />
 
-        <h3>All Drops</h3>
-        <Link href="/all">
-          <a>
-            <p>View all drops here!</p>
-          </a>
-        </Link>
+        {/* <h3>All Drops</h3> */}
+        {/* <Link href="/all"> */}
+        {/*  <a> */}
+        {/*    <p>View all drops here!</p> */}
+        {/*  </a> */}
+        {/* </Link> */}
       </main>
     </div>
   );
