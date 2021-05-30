@@ -47,17 +47,10 @@ const NewDropPage: React.FC = () => {
   const [channelThumb, setChannelThumb] = useState("");
   const [channelName, setChannelName] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [buckets, setBuckets] = useState(null);
-  const [bucketKey, setBucketKey] = useState(null);
+  const [newEntry, setNewEntry] = useState<null | any>(null);
   const [image, setImage] = useState("");
   const [subs, setSubs] = useState("");
   const [loading, setLoading] = useState(false); // May want to show loading modal if time allows
-
-  // const setupBuckets = async () => {
-  //   const { buckets: newBuckets, bucketKey: newBucketKey } = await getBuckets();
-  //   setBuckets(newBuckets);
-  //   setBucketKey(newBucketKey);
-  // };
 
   const uploadFilePinata = async () => {
     // e.preventDefault();
@@ -98,14 +91,9 @@ const NewDropPage: React.FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // TODO: Upload Files
-    // const { buckets, bucketKey } = await getBuckets();
-    // await console.log("buckets", buckets);
-    // await console.log("bucketKey", bucketKey);
-    // if (!buckets || !bucketKey) throw Error("buckets or bucketKey not defined");
-    // await initIndex(buckets, bucketKey, channel);
-    // await insert
+
     const hash = await uploadFilePinata();
+
     console.log("image", image);
     console.log("channel", channel);
 
@@ -121,7 +109,8 @@ const NewDropPage: React.FC = () => {
       },
     });
     console.log("axiosResponse", axiosResponse);
-    // TODO: Send to server
+    setNewEntry(axiosResponse.data[0]);
+
     setLoading(false);
   };
 
@@ -204,12 +193,28 @@ const NewDropPage: React.FC = () => {
   //   );
   // }
 
+  if (newEntry) {
+    return (
+      <Container>
+        <h2>Create Drop</h2>
+        <div>
+          <h2>Your Drop is ready!</h2>
+          <p>
+            Share this link with your subscribers and fans to gift them an NFT!
+          </p>
+          <p>
+            {window.location.host}/redeem/{newEntry.id}
+          </p>
+        </div>
+      </Container>
+    );
+  }
+
   return (
     <Container>
       <h2>Create Drop</h2>
       {loading && <p>Loading</p>}
       <FormContainer onSubmit={handleSubmit}>
-        {/* <img src={channelThumb} alt="Your thumb" /> */}
         <FormLabel>Channel Name</FormLabel>
         <_TextField disabled value={channelName} />
         <FormLabel>Channel ID</FormLabel>
@@ -237,14 +242,8 @@ const NewDropPage: React.FC = () => {
         </div>
         {files}
         <VSpacer />
-        {/* <input */}
-        {/*  type="file" */}
-        {/*  onChange={(e) => setImageFile(e.target.files && e.target.files[0])} */}
-        {/* />{" "} */}
-        {/* <ButtonWrapper> */}
         <VSpacer />
         <SubmitButton type="submit">Submit</SubmitButton>
-        {/* </ButtonWrapper> */}
       </FormContainer>
     </Container>
   );
