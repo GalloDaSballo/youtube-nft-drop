@@ -28,7 +28,7 @@ const MyCollectionPage: React.FC = () => {
           <PolygonLink
             target="_blank"
             rel="nofollower noreferrer"
-            href={`${window.location.host}/collections/${myAddress}`}
+            href={`/collections/${myAddress}`}
           >
             Link to My Collection
           </PolygonLink>

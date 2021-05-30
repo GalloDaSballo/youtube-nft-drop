@@ -9,6 +9,7 @@ import useMyClaims from "../../hooks/useMyClaims";
 import { Claim } from "../../types";
 import { getLink } from "../../utils/text";
 import { StyledImageWrapper } from "../../components/ImageWrapper";
+import VSpacer from "../../components/VSpacer";
 
 // If time allows
 const MyCollectionPage: React.FC = () => {
@@ -19,6 +20,7 @@ const MyCollectionPage: React.FC = () => {
   return (
     <Container>
       <Title>{address} Collection</Title>
+      <VSpacer height={24} />
       {drops?.map((claim: Claim) => (
         <>
           <CentredDeadline>YouTube NFT #{claim.tokenId}</CentredDeadline>
