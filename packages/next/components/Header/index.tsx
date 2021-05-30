@@ -70,7 +70,7 @@ const Nav = styled.div`
 `;
 const NavLink = styled.div`
   ${typo.buttonText};
-  margin: 0 16px;
+  margin: 0 40px;
   cursor: pointer;
 `;
 const LoginButton = styled(ButtonOutlined)`

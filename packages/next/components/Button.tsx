@@ -82,7 +82,12 @@ export const ButtonThird: React.FC<
 
 const BlackButton = styled(PrimaryButton)`
   && {
-    background-color: black;
+    background-color: ${(props) =>
+      props.color
+        ? css`
+            ${props.color}
+          `
+        : css`black`};
     height: ${(props) => (props.height ? props.height : "52px")};
     padding: 16px 24px;
     border: none;

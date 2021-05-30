@@ -69,7 +69,7 @@ const RedeemSingleTokenPage: React.FC = () => {
                 );
                 if (newWindow) newWindow.opener = null;
               }}
-              color="fc2e34"
+              color="#fc2e34"
               type="submit"
             >
               <TwitterLogo />
@@ -92,6 +92,6 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const TwitterButton = styled(ButtonThird)`
+export const TwitterButton = styled(ButtonThird)`
   background: #fc2e34;
 `;

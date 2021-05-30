@@ -9,6 +9,8 @@ import ImageWrapper from "../components/ImageWrapper";
 import { Container } from "./view/[dropId]";
 import { Title, TitleUnderLineRed } from "./redeem/[dropId]";
 import { typo } from "../lib/theme/styled-helpers";
+import { ChannelAvatar } from "./new";
+import { getLink } from "../utils/text";
 
 export const fetcher = (url) => fetch(url).then((res) => res.json());
 // If time allows
@@ -32,11 +34,19 @@ const AllDropsPage: React.FC = () => {
         <Link href={`/redeem/${drop.id}`}>
           <a>
             <div>
-              <Title>Channel: {drop.channelName}</Title>
-              <CentredDeadline>YouTube NFT #{drop.id}</CentredDeadline>
-              <CentredDeadline>
-                Subscription Deadline: {formatDate(drop.endDate)}
-              </CentredDeadline>
+              <CellRow>
+                <CellColumn>
+                  <ChannelAvatar src={getLink(drop.channelThumb)} />
+                </CellColumn>
+                <CellColumn>
+                  <Title>{drop.channelName}</Title>
+                  <CentredDeadline>YouTube NFT #{drop.id}</CentredDeadline>
+                  <CentredDeadline>
+                    Subscribe By: {formatDate(drop.endDate)}
+                  </CentredDeadline>
+                </CellColumn>
+              </CellRow>
+
               <ImageWrapper src={drop.imageURI} />
             </div>
           </a>
@@ -56,7 +66,18 @@ const PolygonLink = styled.a`
   ${typo.title};
   color: #fc2e34;
   :hover {
-    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.17);
     cursor: pointer;
   }
+`;
+const CellRow = styled.div`
+  display: flex;
+  padding: 0 0 0 28px;
+  width: 90%;
+  justify-content: space-between;
+  align-items: center;
+`;
+const CellColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
