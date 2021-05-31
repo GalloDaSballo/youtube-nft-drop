@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useRouter } from "next/dist/client/router";
+import React from "react";
 import NFT from "../../components/NFT";
 import { CentredDeadline } from "../all";
 import { Container } from "../view/[dropId]";
@@ -7,6 +8,8 @@ import { Title } from "../redeem/[dropId]";
 import useMyClaims from "../../hooks/useMyClaims";
 import { Claim } from "../../types";
 import { getLink } from "../../utils/text";
+import { StyledImageWrapper } from "../../components/ImageWrapper";
+import VSpacer from "../../components/VSpacer";
 
 // If time allows
 const MyCollectionPage: React.FC = () => {
@@ -17,8 +20,12 @@ const MyCollectionPage: React.FC = () => {
   return (
     <Container>
       <Title>{address} Collection</Title>
+      <VSpacer height={24} />
       {drops?.map((claim: Claim) => (
-        <NFT image={getLink(claim.drop.tokenURI)} />
+        <>
+          <CentredDeadline>YouTube NFT #{claim.tokenId}</CentredDeadline>
+          <StyledImageWrapper src={getLink(claim.drop.tokenURI)} />
+        </>
       ))}
     </Container>
   );

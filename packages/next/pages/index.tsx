@@ -23,7 +23,7 @@ const Home: React.FC = () => {
               <ButtonThird>Create Drop</ButtonThird>
             </Link>
           </div>
-          <div>
+          <div className={styles.mastheadImg}>
             <img src="/images/home.png" alt="Welcome to YouTube NFT Drop!" />
           </div>
         </div>
