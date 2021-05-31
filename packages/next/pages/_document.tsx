@@ -9,6 +9,7 @@ import Document, {
 import { ServerStyleSheet } from "styled-components";
 import { ServerStyleSheets } from "@material-ui/styles";
 import theme from "../lib/theme/material-ui";
+import ThirdPartyAnalytics from "../components/scripts/ThirdPartyAnalytics";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -53,6 +54,7 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
             rel="stylesheet"
           />
+          <ThirdPartyAnalytics />
         </Head>
         <body>
           <Main />
